@@ -1,6 +1,5 @@
 package com.bank.statement.domain.models;
 
-import com.bank.statement.domain.models.enums.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,15 +26,24 @@ public class Statement implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID statementId;
 
-    @Enumerated(EnumType.STRING)
-    private TransactionType transaction;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID accountId;
 
     @Column(nullable = false)
-    private BigDecimal transactionAmount;
+    private String numberAccount;
+
+    @Column(nullable = false)
+    private String type;
+
+    @Column(nullable = false)
+    private BigDecimal amount;
+
+    @Column(nullable = false)
+    private String transaction;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
-    private OffsetDateTime creationDate;
+    private OffsetDateTime transactionDate;
 
 
 }

@@ -11,19 +11,18 @@ spring:
     url: jdbc:mysql://localhost/bank_statement?createDatabaseIfNotExist=true&serverTimeZone=UTC
     username: root
     password:
-  flyway:
-    locations: classpath:db/migration
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       properties: org.hibernate.dialect.MySQL8Dialect
       jdbc:
         lob.non-contextual-creation: true
     properties:
       hibernate:
         show_sql: true
-    rabbitmq:
-      addresses: amqps://crdzywry:s60VjJGfFG8XvLV47DGyCp5Ig8l2oyCi@woodpecker.rmq.cloudamqp.com/crdzywry
+  rabbitmq:
+    addresses: amqps://crdzywry:s60VjJGfFG8XvLV47DGyCp5Ig8l2oyCi@woodpecker.rmq.cloudamqp.com/crdzywry
+
 
 logging:
   level:
@@ -31,6 +30,20 @@ logging:
     root: INFO
     org.springframework.web: DEBUG
     org.hibernate: INFO
+
+bank:
+  api:
+    url:
+      account: 'http://bank-account-service/bank-account'
+  broker:
+    exchange:
+      accountEventExchange: bank.accountevent
+    queue:
+      accountEventQueue:
+        name: bank.accountevent.ms.statement
+
+
+
 
 eureka:
   client:
