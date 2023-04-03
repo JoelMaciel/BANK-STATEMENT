@@ -23,8 +23,7 @@ public class StatementController {
 
     @PreAuthorize("hasAnyRole('CUSTOMER')")
     @GetMapping("/statements/{accountId}")
-    public Page<StatementDTO> getStatementAccount(@PathVariable UUID accountId, Pageable pageable ,
-                                                  Authentication authentication) {
+    public Page<StatementDTO> getStatementAccount(@PathVariable UUID accountId, Pageable pageable) {
         return statementService.findByStatementAccount(accountId, pageable);
     }
 }
